@@ -11,6 +11,7 @@ import { connectDB } from './config/db.js';
 import { connectRedis } from './config/redis.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { logger } from './utils/logger.js';
+import { authRoutes } from './modules/auth/auth.routes.js';
 
 // ── Create Fastify instance ───────────────────────────────────
 const app = Fastify({
@@ -93,8 +94,8 @@ async function registerRoutes(): Promise<void> {
     });
   });
 
-  // Auth routes (will be added in next step)
-  // await app.register(authRoutes, { prefix: `${env.API_PREFIX}/auth` });
+  // Auth routes
+  await app.register(authRoutes, { prefix: `${env.API_PREFIX}/auth` });
 
   // Settings routes (will be added after auth)
   // await app.register(orgRoutes,         { prefix: `${env.API_PREFIX}/organizations` });

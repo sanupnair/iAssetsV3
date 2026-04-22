@@ -1,6 +1,7 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { env } from './env';
+import * as schema from './drizzle/schema/index.js';
 
 // Create PostgreSQL connection pool
 const pool = new Pool({
@@ -30,6 +31,6 @@ export async function connectDB(): Promise<void> {
 }
 
 // Drizzle instance — schema will be added in next step
-export const db = drizzle(pool);
+export const db = drizzle(pool, { schema });
 export { pool };
 export type DB = typeof db;

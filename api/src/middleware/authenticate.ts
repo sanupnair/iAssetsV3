@@ -5,14 +5,16 @@ import { eq, and, isNull } from 'drizzle-orm';
 import '@fastify/jwt';
 
 export interface JwtPayload {
-  sub: string;
-  email: string;
-  username: string;
-  orgId: string | null;
-  roleCode: string;
-  roleLevel: number;
+  sub:         string;
+  email:       string;
+  username:    string;
+  orgId:       string | null;
+  roleCode:    string;
+  roleLevel:   number;
   permissions: string[];
-  type: 'access' | 'refresh';
+  type:        'access' | 'refresh';
+  iat?:        number;
+  exp?:        number;
 }
 
 // ── Extend FastifyRequest ─────────────────────────────────────
@@ -25,9 +27,16 @@ declare module 'fastify' {
 // ── Extend @fastify/jwt ───────────────────────────────────────
 declare module '@fastify/jwt' {
   interface FastifyJWT {
-    payload: JwtPayload;
-    user: JwtPayload;
+    payload: JwtPayload | RefreshPayload;
+    user:    JwtPayload;
   }
+}
+
+export interface RefreshPayload {
+  sub:  string;
+  type: 'refresh';
+  iat?: number;
+  exp?: number;
 }
 
 // ── Main auth middleware ───────────────────────────────────────
