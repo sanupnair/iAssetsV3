@@ -1,20 +1,21 @@
-import { pgTable, uuid, varchar, text, boolean, timestamp, integer } from 'drizzle-orm/pg-core';
-import { organizations } from './organizations.js';
-import { departments } from './departments.js';
+import { pgTable, uuid, varchar, text, boolean, smallint, timestamp } from 'drizzle-orm/pg-core';
 
 export const designations = pgTable('designations', {
   id:           uuid('id').primaryKey().defaultRandom(),
-  orgId:        uuid('org_id').notNull().references(() => organizations.id),
-  departmentId: uuid('department_id').references(() => departments.id),
-  name:         varchar('name', { length: 200 }).notNull(),
-  code:         varchar('code', { length: 20 }).notNull(),
-  level:        integer('level').notNull().default(1),
+  orgId:        uuid('org_id').notNull(),
+  name:         varchar('name', { length: 300 }).notNull(),
+  shortName:    varchar('short_name', { length: 20 }),
   description:  text('description'),
-  isActive:     boolean('is_active').notNull().default(true),
+  level:        smallint('level'),
+  grade:        varchar('grade', { length: 50 }),
+  category:     varchar('category', { length: 50 }),
+  canApprove:   boolean('can_approve').default(false).notNull(),
+  isHodLevel:   boolean('is_hod_level').default(false).notNull(),
+  isManagement: boolean('is_management').default(false).notNull(),
+  isActive:     boolean('is_active').default(true).notNull(),
   deletedAt:    timestamp('deleted_at', { withTimezone: true }),
-  deletedBy:    uuid('deleted_by'),
   createdBy:    uuid('created_by'),
   updatedBy:    uuid('updated_by'),
-  createdAt:    timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-  updatedAt:    timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+  createdAt:    timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  updatedAt:    timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 });

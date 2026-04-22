@@ -2,22 +2,19 @@ import apiClient from '../client.js';
 import type { Department, PaginatedResponse, ListQuery } from '../../types/index.js';
 
 export interface CreateDepartmentInput {
-  orgId:        string;
-  parentId?:    string;
-  name:         string;
-  code:         string;
-  description?: string;
+  orgId:              string;
+  parentDepartmentId?: string;
+  name:               string;
+  code?:              string;
+  description?:       string;
+  email?:             string;
+  phone?:             string;
 }
 
 export const departmentsApi = {
-  list: async (query?: ListQuery & { orgId?: string; parentId?: string }): Promise<PaginatedResponse<Department>> => {
+  list: async (query?: ListQuery & { orgId?: string; status?: 'active' | 'inactive' }): Promise<PaginatedResponse<Department>> => {
     const { data } = await apiClient.get('/departments', { params: query });
     return { data: data.data, meta: data.meta };
-  },
-
-  tree: async (orgId: string): Promise<Department[]> => {
-    const { data } = await apiClient.get('/departments/tree', { params: { orgId } });
-    return data.data;
   },
 
   getById: async (id: string): Promise<Department> => {

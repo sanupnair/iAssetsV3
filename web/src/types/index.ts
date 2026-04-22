@@ -117,42 +117,49 @@ export interface Branch {
 
 // ── Location ──────────────────────────────────────────────────
 export interface Location {
-  id:          string;
-  orgId:       string;
-  branchId:    string | null;
-  parentId:    string | null;
-  name:        string;
-  code:        string;
-  type:        string | null;
-  floor:       string | null;
-  description: string | null;
-  isActive:    boolean;
-  createdAt:   string;
-  updatedAt:   string;
+  id:               string;
+  orgId:            string;
+  branchId:         string | null;
+  parentLocationId: string | null;
+  name:             string;
+  code:             string | null;
+  type:             string | null;
+  description:      string | null;
+  floorNumber:      number | null;
+  capacity:         number | null;
+  areaSqft:         number | null;
+  isActive:         boolean;
+  createdAt:        string;
+  updatedAt:        string;
 }
-
 // ── Department ────────────────────────────────────────────────
 export interface Department {
-  id:          string;
-  orgId:       string;
-  parentId:    string | null;
-  name:        string;
-  code:        string;
-  description: string | null;
-  isActive:    boolean;
-  createdAt:   string;
-  updatedAt:   string;
+  id:                 string;
+  orgId:              string;
+  parentDepartmentId: string | null;
+  name:               string;
+  code:               string | null;
+  description:        string | null;
+  email:              string | null;
+  phone:              string | null;
+  isActive:           boolean;
+  createdAt:          string;
+  updatedAt:          string;
 }
 
 // ── Designation ───────────────────────────────────────────────
 export interface Designation {
   id:           string;
   orgId:        string;
-  departmentId: string | null;
   name:         string;
-  code:         string;
-  level:        number;
+  shortName:    string | null;
   description:  string | null;
+  level:        number | null;
+  grade:        string | null;
+  category:     string | null;
+  canApprove:   boolean;
+  isHodLevel:   boolean;
+  isManagement: boolean;
   isActive:     boolean;
   createdAt:    string;
   updatedAt:    string;
