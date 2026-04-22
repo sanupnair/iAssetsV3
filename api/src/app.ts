@@ -12,6 +12,13 @@ import { connectRedis } from './config/redis.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { logger } from './utils/logger.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
+import { organizationRoutes } from './modules/organizations/organizations.routes.js';
+import { branchRoutes } from './modules/branches/branches.routes.js';
+import { locationRoutes } from './modules/locations/locations.routes.js';
+import { departmentRoutes } from './modules/departments/departments.routes.js';
+import { designationRoutes } from './modules/designations/designations.routes.js';
+import { roleRoutes } from './modules/roles/roles.routes.js';
+import { userRoutes } from './modules/users/users.routes.js';
 
 // ── Create Fastify instance ───────────────────────────────────
 const app = Fastify({
@@ -97,14 +104,14 @@ async function registerRoutes(): Promise<void> {
   // Auth routes
   await app.register(authRoutes, { prefix: `${env.API_PREFIX}/auth` });
 
-  // Settings routes (will be added after auth)
-  // await app.register(orgRoutes,         { prefix: `${env.API_PREFIX}/organizations` });
-  // await app.register(branchRoutes,      { prefix: `${env.API_PREFIX}/branches` });
-  // await app.register(locationRoutes,    { prefix: `${env.API_PREFIX}/locations` });
-  // await app.register(departmentRoutes,  { prefix: `${env.API_PREFIX}/departments` });
-  // await app.register(designationRoutes, { prefix: `${env.API_PREFIX}/designations` });
-  // await app.register(roleRoutes,        { prefix: `${env.API_PREFIX}/roles` });
-  // await app.register(userRoutes,        { prefix: `${env.API_PREFIX}/users` });
+  // Settings routes
+  await app.register(organizationRoutes,         { prefix: `${env.API_PREFIX}/organizations` });
+  await app.register(branchRoutes,      { prefix: `${env.API_PREFIX}/branches` });
+  await app.register(locationRoutes,    { prefix: `${env.API_PREFIX}/locations` });
+  await app.register(departmentRoutes,  { prefix: `${env.API_PREFIX}/departments` });
+  await app.register(designationRoutes, { prefix: `${env.API_PREFIX}/designations` });
+  await app.register(roleRoutes,        { prefix: `${env.API_PREFIX}/roles` });
+  await app.register(userRoutes,        { prefix: `${env.API_PREFIX}/users` });
 }
 
 // ── Global error handler ──────────────────────────────────────
