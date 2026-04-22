@@ -1,0 +1,26 @@
+import { pgTable, uuid, varchar, text, boolean, timestamp } from 'drizzle-orm/pg-core';
+
+export const organizations = pgTable('organizations', {
+  id:             uuid('id').primaryKey().defaultRandom(),
+  name:           varchar('name', { length: 200 }).notNull(),
+  code:           varchar('code', { length: 20 }).notNull(),
+  legalName:      varchar('legal_name', { length: 300 }),
+  industry:       varchar('industry', { length: 100 }),
+  size:           varchar('size', { length: 20 }),
+  website:        varchar('website', { length: 255 }),
+  email:          varchar('email', { length: 255 }),
+  phone:          varchar('phone', { length: 20 }),
+  address:        text('address'),
+  city:           varchar('city', { length: 100 }),
+  state:          varchar('state', { length: 100 }),
+  country:        varchar('country', { length: 60 }).default('India'),
+  pincode:        varchar('pincode', { length: 10 }),
+  logoUrl:        text('logo_url'),
+  isActive:       boolean('is_active').notNull().default(true),
+  deletedAt:      timestamp('deleted_at', { withTimezone: true }),
+  deletedBy:      uuid('deleted_by'),
+  createdBy:      uuid('created_by'),
+  updatedBy:      uuid('updated_by'),
+  createdAt:      timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt:      timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+});
