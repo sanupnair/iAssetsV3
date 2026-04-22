@@ -22,9 +22,11 @@ const envSchema = z.object({
   JWT_REFRESH_EXPIRES_IN: z.string().default('7d'),
 
   // Redis
-  REDIS_HOST:           z.string().default('127.0.0.1'),
-  REDIS_PORT:           z.coerce.number().default(6379),
-  REDIS_PASSWORD:       z.string().optional(),
+  // Redis
+REDIS_URL: z.string().optional(),
+REDIS_HOST: z.string().default('127.0.0.1'),
+REDIS_PORT: z.coerce.number().default(6379),
+REDIS_PASSWORD: z.string().optional(),
 
   // Email
   EMAIL_HOST:           z.string(),
@@ -46,6 +48,10 @@ const envSchema = z.object({
   // Rate Limiting
   RATE_LIMIT_MAX:       z.coerce.number().default(100),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().default(60000),
+
+  LOG_LEVEL: z
+  .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace'])
+  .default('info'),
 });
 
 const parsed = envSchema.safeParse(process.env);
