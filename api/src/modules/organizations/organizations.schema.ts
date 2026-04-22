@@ -1,21 +1,24 @@
 import { z } from 'zod';
 
 export const createOrgSchema = z.object({
-  name:      z.string().min(2, 'Name must be at least 2 characters').max(200),
-  code:      z.string().min(2).max(20).toUpperCase(),
-  legalName: z.string().max(300).optional(),
-  industry:  z.string().max(100).optional(),
-  size:      z.enum(['1-10', '11-50', '51-200', '201-500', '501-1000', '1000+']).optional(),
-  website:   z.string().url().optional().or(z.literal('')),
-  email:     z.string().email().optional().or(z.literal('')),
-  phone:     z.string().max(20).optional(),
-  address:   z.string().optional(),
-  city:      z.string().max(100).optional(),
-  state:     z.string().max(100).optional(),
-  country:   z.string().max(60).default('India'),
-  pincode:   z.string().max(10).optional(),
+  name:         z.string().min(2).max(300),
+  legalName:    z.string().optional(),
+  shortCode:    z.string().max(20).optional(),   // ← was 'code', now 'shortCode' and optional
+  website:      z.string().optional(),
+  description:  z.string().optional(),
+  primaryEmail: z.string().email().optional().or(z.literal('')),
+  primaryPhone: z.string().max(20).optional(),
+  supportEmail: z.string().email().optional().or(z.literal('')),
+  supportPhone: z.string().max(20).optional(),
+  addressLine1: z.string().optional(),
+  addressLine2: z.string().optional(),
+  city:         z.string().optional(),
+  state:        z.string().optional(),
+  country:      z.string().optional(),
+  pincode:      z.string().optional(),
+  gstin:        z.string().optional(),
+  pan:          z.string().optional(),
 });
-
 export const updateOrgSchema = createOrgSchema.partial();
 
 export const listOrgSchema = z.object({

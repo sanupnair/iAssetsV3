@@ -2,23 +2,27 @@ import apiClient from '../client.js';
 import type { Organization, PaginatedResponse, ListQuery } from '../../types/index.js';
 
 export interface OrgQuery extends ListQuery {
-  industry?: string;
+  status?: 'active' | 'inactive';
 }
 
 export interface CreateOrgInput {
-  name:        string;
-  code:        string;
-  legalName?:  string;
-  industry?:   string;
-  size?:       string;
-  website?:    string;
-  email?:      string;
-  phone?:      string;
-  address?:    string;
-  city?:       string;
-  state?:      string;
-  country?:    string;
-  pincode?:    string;
+  name:          string;
+  legalName?:    string;
+  shortCode?:    string;
+  website?:      string;
+  description?:  string;
+  primaryEmail?: string;
+  primaryPhone?: string;
+  supportEmail?: string;
+  supportPhone?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  city?:         string;
+  state?:        string;
+  country?:      string;
+  pincode?:      string;
+  gstin?:        string;
+  pan?:          string;
 }
 
 export const organizationsApi = {

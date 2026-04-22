@@ -68,26 +68,34 @@ export interface ListQuery {
 
 // ── Organization ──────────────────────────────────────────────
 export interface Organization {
-  id:        string;
-  name:      string;
-  code:      string;
-  legalName: string | null;
-  industry:  string | null;
-  size:      string | null;
-  website:   string | null;
-  email:     string | null;
-  phone:     string | null;
-  address:   string | null;
-  city:      string | null;
-  state:     string | null;
-  country:   string | null;
-  pincode:   string | null;
-  logoUrl:   string | null;
-  isActive:  boolean;
-  createdAt: string;
-  updatedAt: string;
+  id:                    string;
+  name:                  string;
+  legalName:             string | null;
+  shortCode:             string | null;
+  logoUrl:               string | null;
+  website:               string | null;
+  description:           string | null;
+  gstin:                 string | null;
+  pan:                   string | null;
+  cin:                   string | null;
+  primaryEmail:          string | null;
+  primaryPhone:          string | null;
+  supportEmail:          string | null;
+  supportPhone:          string | null;
+  addressLine1:          string | null;
+  addressLine2:          string | null;
+  city:                  string | null;
+  state:                 string | null;
+  country:               string | null;
+  pincode:               string | null;
+  timezone:              string | null;
+  currencyCode:          string | null;
+  currencySymbol:        string | null;
+  isActive:              boolean;
+  isVerified:            boolean;
+  createdAt:             string;
+  updatedAt:             string;
 }
-
 // ── Branch ────────────────────────────────────────────────────
 export interface Branch {
   id:           string;
