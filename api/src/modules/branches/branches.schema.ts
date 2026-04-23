@@ -1,20 +1,21 @@
 import { z } from 'zod';
 
 export const createBranchSchema = z.object({
-  orgId:        z.string().uuid('Invalid organization ID'),
-  name:         z.string().min(2).max(200),
-  code:         z.string().min(2).max(20).toUpperCase(),
-  address:      z.string().optional(),
-  city:         z.string().max(100).optional(),
-  state:        z.string().max(100).optional(),
-  country:      z.string().max(60).default('India'),
-  pincode:      z.string().max(10).optional(),
+  orgId:        z.string().uuid(),
+  name:         z.string().min(2).max(300),
+  code:         z.string().max(20).optional(),
+  branchType:   z.string().max(50).optional(),
+  description:  z.string().optional(),
+  addressLine1: z.string().optional(),
+  addressLine2: z.string().optional(),
+  pincode:      z.string().optional(),
   phone:        z.string().max(20).optional(),
   email:        z.string().email().optional().or(z.literal('')),
-  isHeadOffice: z.boolean().default(false),
+  gstin:        z.string().optional(),
+  isHq:         z.boolean().optional(),
 });
 
-export const updateBranchSchema = createBranchSchema.partial().omit({ orgId: true });
+export const updateBranchSchema = createBranchSchema.omit({ orgId: true }).partial();
 
 export const listBranchSchema = z.object({
   page:      z.coerce.number().min(1).default(1),

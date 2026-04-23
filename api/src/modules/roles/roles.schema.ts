@@ -1,15 +1,19 @@
 import { z } from 'zod';
 
 export const createRoleSchema = z.object({
-  orgId:       z.string().uuid('Invalid organization ID').optional(),
-  name:        z.string().min(2).max(100),
-  code:        z.string().min(2).max(50).toUpperCase(),
-  description: z.string().optional(),
-  level:       z.coerce.number().min(1).max(100).default(1),
-  permissions: z.array(z.string()).min(1, 'At least one permission is required'),
+  orgId:          z.string().uuid(),
+  name:           z.string().min(2).max(100),
+  code:           z.string().max(20).optional(),
+  description:    z.string().optional(),
+  color:          z.string().max(20).optional(),
+  icon:           z.string().max(50).optional(),
+  level:          z.coerce.number().int().min(0).max(99).optional(),
+  canApprove:     z.boolean().optional().default(false),
+  canManageUsers: z.boolean().optional().default(false),
+  isDefault:      z.boolean().optional().default(false),
 });
 
-export const updateRoleSchema = createRoleSchema.partial().omit({ orgId: true });
+export const updateRoleSchema = createRoleSchema.omit({ orgId: true }).partial();
 
 export const listRoleSchema = z.object({
   page:      z.coerce.number().min(1).default(1),
@@ -17,15 +21,10 @@ export const listRoleSchema = z.object({
   search:    z.string().optional(),
   orgId:     z.string().uuid().optional(),
   status:    z.enum(['active', 'inactive']).optional(),
-  sortBy:    z.enum(['name', 'code', 'level', 'createdAt']).default('level'),
+  sortBy:    z.enum(['name', 'level', 'createdAt']).default('level'),
   sortOrder: z.enum(['asc', 'desc']).default('asc'),
 });
 
-export const assignPermissionsSchema = z.object({
-  permissions: z.array(z.string()).min(1, 'At least one permission is required'),
-});
-
-export type CreateRoleInput        = z.infer<typeof createRoleSchema>;
-export type UpdateRoleInput        = z.infer<typeof updateRoleSchema>;
-export type ListRoleInput          = z.infer<typeof listRoleSchema>;
-export type AssignPermissionsInput = z.infer<typeof assignPermissionsSchema>;
+export type CreateRoleInput = z.infer<typeof createRoleSchema>;
+export type UpdateRoleInput = z.infer<typeof updateRoleSchema>;
+export type ListRoleInput   = z.infer<typeof listRoleSchema>;

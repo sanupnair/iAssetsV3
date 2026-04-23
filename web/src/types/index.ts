@@ -101,20 +101,20 @@ export interface Branch {
   id:           string;
   orgId:        string;
   name:         string;
-  code:         string;
-  address:      string | null;
-  city:         string | null;
-  state:        string | null;
-  country:      string | null;
+  code:         string | null;
+  branchType:   string | null;
+  description:  string | null;
+  addressLine1: string | null;
+  addressLine2: string | null;
   pincode:      string | null;
   phone:        string | null;
   email:        string | null;
-  isHeadOffice: boolean;
+  gstin:        string | null;
+  isHq:         boolean;
   isActive:     boolean;
   createdAt:    string;
   updatedAt:    string;
 }
-
 // ── Location ──────────────────────────────────────────────────
 export interface Location {
   id:               string;
@@ -167,17 +167,21 @@ export interface Designation {
 
 // ── Role ──────────────────────────────────────────────────────
 export interface Role {
-  id:          string;
-  orgId:       string | null;
-  name:        string;
-  code:        string;
-  description: string | null;
-  level:       number;
-  isSystem:    boolean;
-  isActive:    boolean;
-  permissions: string[];
-  createdAt:   string;
-  updatedAt:   string;
+  id:             string;
+  orgId:          string;
+  name:           string;
+  code:           string | null;
+  description:    string | null;
+  color:          string | null;
+  icon:           string | null;
+  level:          number | null;
+  isSystem:       boolean;
+  isDefault:      boolean;
+  canApprove:     boolean;
+  canManageUsers: boolean;
+  isActive:       boolean;
+  createdAt:      string;
+  updatedAt:      string;
 }
 
 export interface Permission {
